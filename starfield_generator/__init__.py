@@ -158,7 +158,8 @@ def generate_starfield(context: bpy.types.Context, settings: StarfieldSettings) 
     mesh = ensure_star_mesh()
     material = ensure_star_material(settings)
 
-    if material not in mesh.materials:
+    has_material = any(mat == material for mat in mesh.materials)
+    if not has_material:
         mesh.materials.clear()
         mesh.materials.append(material)
 
