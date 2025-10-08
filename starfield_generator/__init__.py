@@ -127,7 +127,10 @@ def ensure_star_material(settings: StarfieldSettings) -> bpy.types.Material:
     links.new(emission_node.outputs['Emission'], output_node.inputs['Surface'])
 
     material.blend_method = 'BLEND'
-    material.shadow_method = 'NONE'
+    if hasattr(material, "shadow_method"):
+        material.shadow_method = 'NONE'
+    elif hasattr(material, "use_shadow"):
+        material.use_shadow = False
     material.use_backface_culling = False
 
     return material
